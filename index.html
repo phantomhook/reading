@@ -125,26 +125,9 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
   box-shadow: 0 20px 60px rgba(44,74,62,0.15);
   aspect-ratio: 4/5; max-height: 560px;
 }
-.hero-image-placeholder {
-  width: 100%; height: 100%;
-  background: linear-gradient(160deg, var(--forest) 0%, var(--forest-light) 40%, var(--forest-deep) 100%);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 40px; text-align: center; position: relative; overflow: hidden;
-}
-.hero-image-placeholder::before {
-  content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%;
-  background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
-}
-.chair-illustration {
-  width: 180px; height: 200px; margin-bottom: 24px; position: relative;
-}
-.chair-illustration svg { width: 100%; height: 100%; }
-.hero-image-label {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold-light);
-  font-style: italic; position: relative;
-}
-.hero-image-sublabel {
-  font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 8px; position: relative;
+.hero-image-photo {
+  width: 100%; height: 100%; object-fit: cover; object-position: center top;
+  display: block;
 }
 
 /* Floating badges */
@@ -503,35 +486,7 @@ footer {
       </div>
       <div style="position:relative;">
         <div class="hero-image-card">
-          <div class="hero-image-placeholder">
-            <div class="chair-illustration">
-              <svg viewBox="0 0 180 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Wingback Chair SVG Illustration -->
-                <ellipse cx="90" cy="190" rx="70" ry="8" fill="rgba(0,0,0,0.15)"/>
-                <!-- Chair back -->
-                <path d="M30 40 Q30 10 60 8 Q90 5 120 8 Q150 10 150 40 L150 120 Q150 135 140 140 L40 140 Q30 135 30 120 Z" fill="#8B6914" opacity="0.7"/>
-                <path d="M35 45 Q35 18 62 15 Q90 12 118 15 Q145 18 145 45 L145 115 Q145 128 137 132 L43 132 Q35 128 35 115 Z" fill="#A67C00" opacity="0.5"/>
-                <!-- Seat cushion -->
-                <path d="M32 130 Q32 125 40 122 L140 122 Q148 125 148 130 L150 155 Q150 165 140 168 L40 168 Q30 165 30 155 Z" fill="#8B6914" opacity="0.7"/>
-                <!-- Arms -->
-                <path d="M25 50 Q15 50 15 65 L15 140 Q15 155 25 155 L35 155 L35 50 Z" fill="#8B6914" opacity="0.6"/>
-                <path d="M145 50 L145 155 L155 155 Q165 155 165 140 L165 65 Q165 50 155 50 Z" fill="#8B6914" opacity="0.6"/>
-                <!-- Legs -->
-                <rect x="35" y="168" width="8" height="22" rx="2" fill="#5C4600" opacity="0.8"/>
-                <rect x="137" y="168" width="8" height="22" rx="2" fill="#5C4600" opacity="0.8"/>
-                <!-- Book on chair -->
-                <rect x="60" y="135" width="35" height="25" rx="2" fill="#c9a84c" opacity="0.9" transform="rotate(-8 60 135)"/>
-                <rect x="63" y="138" width="29" height="19" rx="1" fill="#e3cc7a" opacity="0.7" transform="rotate(-8 63 138)"/>
-                <!-- Phonics tiles -->
-                <rect x="100" y="138" width="16" height="16" rx="2" fill="rgba(255,255,255,0.9)"/>
-                <text x="104" y="151" font-family="serif" font-size="11" fill="#2c4a3e" font-weight="bold">A</text>
-                <rect x="118" y="140" width="16" height="16" rx="2" fill="rgba(255,255,255,0.9)"/>
-                <text x="122" y="153" font-family="serif" font-size="11" fill="#2c4a3e" font-weight="bold">B</text>
-              </svg>
-            </div>
-            <div class="hero-image-label">The Reading Chair</div>
-            <div class="hero-image-sublabel">Replace with professional photo</div>
-          </div>
+          <img src="hero.jpg" alt="A warm reading session — Marisa guiding a child through the joy of reading" class="hero-image-photo">
         </div>
         <div class="trust-badge trust-badge-top">
           <div class="badge-icon badge-icon-green">
