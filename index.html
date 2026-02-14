@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marisa's Reading Chair — Where Science Meets the Heart</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Nunito Sans', sans-serif; color: #3a3a3a; background: #faf8f4; line-height: 1.7; }
+
+/* ===== COLOR TOKENS ===== */
+:root {
+  --forest: #2c4a3e;
+  --forest-deep: #1e3630;
+  --forest-light: #3d6b5a;
+  --oatmeal: #f5f0e8;
+  --oatmeal-warm: #ebe4d6;
+  --oatmeal-dark: #d4cabb;
+  --gold: #c9a84c;
+  --gold-light: #e3cc7a;
+  --gold-dark: #a88a32;
+  --cream: #faf8f4;
+  --text: #3a3a3a;
+  --text-light: #6b6b6b;
+  --white: #ffffff;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; color: var(--forest); line-height: 1.25; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 600; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 600; }
+h3 { font-size: clamp(1.3rem, 2.5vw, 1.6rem); font-weight: 600; }
+p { font-size: 1.05rem; color: var(--text-light); }
+
+/* ===== UTILITY ===== */
+.container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+.gold-rule { width: 60px; height: 3px; background: var(--gold); border: none; margin: 16px 0 24px 0; border-radius: 2px; }
+.gold-rule-center { width: 60px; height: 3px; background: var(--gold); border: none; margin: 16px auto 24px auto; border-radius: 2px; }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250,248,244,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--oatmeal-dark);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner {
+  max-width: 1140px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; height: 72px;
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 700;
+  color: var(--forest); text-decoration: none; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand svg { flex-shrink: 0; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--text); font-size: 0.92rem; font-weight: 600;
+  letter-spacing: 0.03em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold-dark); }
+.nav-cta {
+  background: var(--forest); color: var(--white); padding: 10px 22px; border-radius: 6px;
+  text-decoration: none; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.03em;
+  transition: background 0.2s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--forest-light); transform: translateY(-1px); }
+.mobile-menu { display: none; background: none; border: none; cursor: pointer; }
+.mobile-menu svg { color: var(--forest); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  background: linear-gradient(135deg, var(--oatmeal) 0%, var(--cream) 50%, var(--oatmeal-warm) 100%);
+  padding-top: 72px; overflow: hidden; position: relative;
+}
+.hero::before {
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 45%;
+  background: linear-gradient(180deg, rgba(44,74,62,0.03) 0%, rgba(44,74,62,0.08) 100%);
+  border-radius: 0 0 0 40%;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  position: relative; z-index: 2;
+}
+.hero-text { max-width: 540px; }
+.hero-eyebrow {
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 16px;
+}
+.hero-title { margin-bottom: 20px; color: var(--forest-deep); }
+.hero-title span { color: var(--gold-dark); font-style: italic; }
+.hero-sub {
+  font-size: 1.12rem; line-height: 1.8; color: var(--text-light); margin-bottom: 36px;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold); color: var(--forest-deep); padding: 16px 36px;
+  border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem;
+  letter-spacing: 0.02em; transition: all 0.3s; border: 2px solid var(--gold);
+  box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+}
+.hero-cta:hover {
+  background: transparent; color: var(--gold-dark);
+  box-shadow: 0 4px 20px rgba(201,168,76,0.15); transform: translateY(-2px);
+}
+.hero-cta svg { transition: transform 0.3s; }
+.hero-cta:hover svg { transform: translateX(4px); }
+.hero-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--forest); text-decoration: none; font-weight: 600; font-size: 0.95rem;
+  margin-left: 24px; transition: color 0.2s;
+}
+.hero-secondary:hover { color: var(--gold-dark); }
+.hero-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+
+/* Hero Image Card */
+.hero-image-card {
+  position: relative; border-radius: 20px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(44,74,62,0.15);
+  aspect-ratio: 4/5; max-height: 560px;
+}
+.hero-image-placeholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(160deg, var(--forest) 0%, var(--forest-light) 40%, var(--forest-deep) 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px; text-align: center; position: relative; overflow: hidden;
+}
+.hero-image-placeholder::before {
+  content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%;
+  background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+}
+.chair-illustration {
+  width: 180px; height: 200px; margin-bottom: 24px; position: relative;
+}
+.chair-illustration svg { width: 100%; height: 100%; }
+.hero-image-label {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold-light);
+  font-style: italic; position: relative;
+}
+.hero-image-sublabel {
+  font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 8px; position: relative;
+}
+
+/* Floating badges */
+.trust-badge {
+  position: absolute; background: var(--white); border-radius: 12px; padding: 12px 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px;
+  z-index: 3;
+}
+.trust-badge-top { top: -16px; right: 24px; }
+.trust-badge-bottom { bottom: 24px; left: -20px; }
+.badge-icon {
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.badge-icon-green { background: rgba(44,74,62,0.1); color: var(--forest); }
+.badge-icon-gold { background: rgba(201,168,76,0.15); color: var(--gold-dark); }
+.badge-text { font-size: 0.82rem; font-weight: 700; color: var(--forest); line-height: 1.3; }
+.badge-text span { display: block; font-weight: 400; color: var(--text-light); font-size: 0.75rem; }
+
+/* ===== TRUST BAR ===== */
+.trust-bar {
+  background: var(--forest-deep); padding: 28px 0;
+}
+.trust-bar-inner {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; align-items: center;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.8); font-size: 0.88rem; font-weight: 600;
+}
+.trust-item svg { color: var(--gold); flex-shrink: 0; }
+
+/* ===== SECTION SPACING ===== */
+section { padding: 100px 0; }
+
+/* ===== ABOUT / INTRO ===== */
+.about {
+  background: var(--white);
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.about-image-frame {
+  border-radius: 20px; overflow: hidden; position: relative;
+  background: linear-gradient(135deg, var(--oatmeal) 0%, var(--oatmeal-warm) 100%);
+  padding: 40px; min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.about-avatar {
+  width: 160px; height: 160px; border-radius: 50%; border: 4px solid var(--gold);
+  background: var(--forest); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px; box-shadow: 0 8px 30px rgba(44,74,62,0.2);
+}
+.about-avatar-text {
+  font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold-light); font-weight: 700;
+}
+.about-quote {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--forest);
+  text-align: center; font-style: italic; line-height: 1.6;
+}
+.about-quote-attr {
+  margin-top: 12px; font-family: 'Nunito Sans', sans-serif; font-size: 0.85rem;
+  color: var(--gold-dark); font-style: normal; font-weight: 700;
+}
+.about-content h2 { margin-bottom: 8px; }
+.about-content p { margin-bottom: 20px; }
+.about-content .credential-list {
+  list-style: none; padding: 0; margin: 24px 0 0 0;
+}
+.about-content .credential-list li {
+  display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px;
+  font-size: 0.95rem; color: var(--text);
+}
+.about-content .credential-list li svg { color: var(--gold-dark); flex-shrink: 0; margin-top: 3px; }
+
+/* ===== FEATURES / SCIENCE & SPIRIT ===== */
+.features {
+  background: var(--cream); position: relative;
+}
+.features::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--oatmeal-dark), transparent);
+}
+.section-header { text-align: center; max-width: 640px; margin: 0 auto 60px auto; }
+.section-header p { margin-top: 12px; }
+.feature-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.feature-card {
+  background: var(--white); border-radius: 16px; padding: 40px 32px;
+  border: 1px solid var(--oatmeal-dark); transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  opacity: 0; transition: opacity 0.3s;
+}
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(44,74,62,0.08); }
+.feature-card:hover::before { opacity: 1; }
+.feature-icon {
+  width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; font-size: 1.4rem;
+}
+.feature-icon-1 { background: rgba(44,74,62,0.08); color: var(--forest); }
+.feature-icon-2 { background: rgba(201,168,76,0.12); color: var(--gold-dark); }
+.feature-icon-3 { background: rgba(44,74,62,0.08); color: var(--forest); }
+.feature-card h3 { margin-bottom: 12px; }
+.feature-card p { font-size: 0.95rem; line-height: 1.7; }
+
+/* ===== SUCCESS PATH ===== */
+.success-path {
+  background: var(--forest-deep); color: var(--white); position: relative; overflow: hidden;
+}
+.success-path::before {
+  content: ''; position: absolute; top: -200px; right: -200px; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+}
+.success-path .section-header h2 { color: var(--white); }
+.success-path .section-header p { color: rgba(255,255,255,0.7); }
+.success-path .gold-rule-center { background: var(--gold); }
+.path-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative;
+}
+.path-connector {
+  position: absolute; top: 50px; left: 33.33%; right: 33.33%; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  opacity: 0.4;
+}
+.path-step {
+  text-align: center; padding: 0 28px; position: relative;
+}
+.path-number {
+  width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 24px auto;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700;
+  position: relative; z-index: 2;
+}
+.path-number-1 { background: var(--gold); color: var(--forest-deep); }
+.path-number-2 { background: var(--gold); color: var(--forest-deep); }
+.path-number-3 { background: var(--gold); color: var(--forest-deep); }
+.path-step h3 { color: var(--white); margin-bottom: 8px; font-size: 1.3rem; }
+.path-step .path-subtitle {
+  font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold-light);
+  font-size: 1rem; margin-bottom: 12px;
+}
+.path-step p { color: rgba(255,255,255,0.65); font-size: 0.92rem; }
+
+/* ===== RESOURCE LIBRARY PREVIEW ===== */
+.resources {
+  background: var(--white);
+}
+.resources-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+}
+.resources-content h2 { margin-bottom: 8px; }
+.resources-content p { margin-bottom: 24px; }
+.resource-preview-list { list-style: none; padding: 0; }
+.resource-preview-list li {
+  display: flex; align-items: center; gap: 16px; padding: 16px 0;
+  border-bottom: 1px solid var(--oatmeal-dark);
+}
+.resource-preview-list li:last-child { border-bottom: none; }
+.resource-thumb {
+  width: 52px; height: 52px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+}
+.resource-thumb-1 { background: rgba(44,74,62,0.08); }
+.resource-thumb-2 { background: rgba(201,168,76,0.12); }
+.resource-thumb-3 { background: rgba(44,74,62,0.08); }
+.resource-info h4 { font-size: 1rem; margin-bottom: 2px; }
+.resource-info p { font-size: 0.82rem; margin: 0; }
+.resource-lock {
+  font-size: 0.72rem; font-weight: 700; color: var(--gold-dark);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-left: auto; flex-shrink: 0;
+}
+.resources-visual {
+  background: linear-gradient(135deg, var(--oatmeal) 0%, var(--oatmeal-warm) 100%);
+  border-radius: 20px; padding: 48px; min-height: 420px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.resources-visual::before {
+  content: ''; position: absolute; inset: 12px; border: 2px dashed var(--oatmeal-dark);
+  border-radius: 14px; opacity: 0.5;
+}
+.resources-visual-icon { font-size: 3.5rem; margin-bottom: 20px; position: relative; }
+.resources-visual h3 { text-align: center; margin-bottom: 8px; position: relative; }
+.resources-visual p { text-align: center; font-size: 0.9rem; position: relative; max-width: 280px; }
+.resources-unlock-btn {
+  margin-top: 24px; display: inline-flex; align-items: center; gap: 8px;
+  background: var(--forest); color: var(--white); padding: 12px 28px; border-radius: 8px;
+  text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: all 0.3s;
+  position: relative;
+}
+.resources-unlock-btn:hover { background: var(--forest-light); transform: translateY(-2px); }
+
+/* ===== TESTIMONIAL ===== */
+.testimonial {
+  background: var(--oatmeal); position: relative; overflow: hidden;
+}
+.testimonial::before {
+  content: '\201C'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  font-family: 'Cormorant Garamond', serif; font-size: 16rem; color: var(--oatmeal-dark);
+  line-height: 1; opacity: 0.5;
+}
+.testimonial-content {
+  max-width: 720px; margin: 0 auto; text-align: center; position: relative;
+}
+.testimonial-quote {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  color: var(--forest); line-height: 1.7; font-style: italic; margin-bottom: 28px;
+}
+.testimonial-author { display: flex; align-items: center; justify-content: center; gap: 16px; }
+.testimonial-avatar {
+  width: 48px; height: 48px; border-radius: 50%; background: var(--forest);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-light); font-family: 'Cormorant Garamond', serif; font-weight: 700;
+}
+.testimonial-name { font-weight: 700; color: var(--forest); font-size: 0.95rem; }
+.testimonial-role { font-size: 0.82rem; color: var(--text-light); }
+.testimonial-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 20px; }
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+  background: linear-gradient(135deg, var(--forest-deep) 0%, var(--forest) 50%, var(--forest-light) 100%);
+  text-align: center; padding: 100px 0; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.cta-content { position: relative; }
+.cta-content h2 { color: var(--white); margin-bottom: 16px; }
+.cta-content p { color: rgba(255,255,255,0.8); max-width: 560px; margin: 0 auto 36px auto; font-size: 1.1rem; }
+.cta-button {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold); color: var(--forest-deep); padding: 18px 44px;
+  border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem;
+  transition: all 0.3s; box-shadow: 0 6px 24px rgba(201,168,76,0.35);
+}
+.cta-button:hover {
+  background: var(--gold-light); transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.4);
+}
+.cta-note {
+  margin-top: 16px; font-size: 0.82rem; color: rgba(255,255,255,0.5);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--forest-deep); color: rgba(255,255,255,0.6); padding: 48px 0 32px 0;
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px;
+}
+.footer-brand { max-width: 320px; }
+.footer-brand-name {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--white);
+  font-weight: 700; margin-bottom: 12px;
+}
+.footer-brand p { font-size: 0.85rem; line-height: 1.7; }
+.footer-links h4 {
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 16px;
+}
+.footer-links ul { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold-light); }
+.footer-bottom {
+  margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center; font-size: 0.8rem;
+}
+.footer-bottom a { color: var(--gold); text-decoration: none; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+  .hero-text { max-width: 100%; }
+  .hero-image-card { max-height: 380px; max-width: 360px; margin: 0 auto; }
+  .hero-buttons { justify-content: center; }
+  .hero-secondary { margin-left: 0; }
+  .gold-rule { margin-left: auto; margin-right: auto; }
+  .trust-badge-top { top: -12px; right: 8px; }
+  .trust-badge-bottom { bottom: 16px; left: 8px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-image-frame { min-height: 300px; }
+  .feature-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .path-grid { grid-template-columns: 1fr; gap: 48px; }
+  .path-connector { display: none; }
+  .resources-grid { grid-template-columns: 1fr; }
+  .resources-visual { min-height: 300px; }
+  .footer-inner { flex-direction: column; align-items: center; text-align: center; }
+  .nav-links { display: none; }
+  .mobile-menu { display: block; }
+}
+@media (max-width: 600px) {
+  section { padding: 64px 0; }
+  .hero { padding-top: 72px; min-height: auto; padding-bottom: 48px; }
+  .nav-cta { display: none; }
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-up {
+  opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect x="2" y="6" width="24" height="18" rx="3" fill="#2c4a3e"/>
+        <path d="M6 10h6v10H6z" fill="#c9a84c" opacity="0.8"/>
+        <path d="M14 10h8M14 14h8M14 18h5" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Marisa's Reading Chair
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#path">Your Path</a></li>
+      <li><a href="#resources">Resources</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Book a Consultation</a>
+    <button class="mobile-menu" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow">McKinney, Texas &bull; Reading Specialist</div>
+        <h1 class="hero-title">Every Child Has a Seat at the Table. Welcome to <span>Marisa's Reading Chair.</span></h1>
+        <hr class="gold-rule">
+        <p class="hero-sub">Where specialized Orton-Gillingham science meets a faith-based commitment to your child's flourishing. We don't just teach decoding; we restore the God-given joy of discovery.</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="hero-cta">
+            Pull Up a Chair
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#approach" class="hero-secondary">
+            Learn Our Approach
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </a>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <div class="hero-image-card">
+          <div class="hero-image-placeholder">
+            <div class="chair-illustration">
+              <svg viewBox="0 0 180 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Wingback Chair SVG Illustration -->
+                <ellipse cx="90" cy="190" rx="70" ry="8" fill="rgba(0,0,0,0.15)"/>
+                <!-- Chair back -->
+                <path d="M30 40 Q30 10 60 8 Q90 5 120 8 Q150 10 150 40 L150 120 Q150 135 140 140 L40 140 Q30 135 30 120 Z" fill="#8B6914" opacity="0.7"/>
+                <path d="M35 45 Q35 18 62 15 Q90 12 118 15 Q145 18 145 45 L145 115 Q145 128 137 132 L43 132 Q35 128 35 115 Z" fill="#A67C00" opacity="0.5"/>
+                <!-- Seat cushion -->
+                <path d="M32 130 Q32 125 40 122 L140 122 Q148 125 148 130 L150 155 Q150 165 140 168 L40 168 Q30 165 30 155 Z" fill="#8B6914" opacity="0.7"/>
+                <!-- Arms -->
+                <path d="M25 50 Q15 50 15 65 L15 140 Q15 155 25 155 L35 155 L35 50 Z" fill="#8B6914" opacity="0.6"/>
+                <path d="M145 50 L145 155 L155 155 Q165 155 165 140 L165 65 Q165 50 155 50 Z" fill="#8B6914" opacity="0.6"/>
+                <!-- Legs -->
+                <rect x="35" y="168" width="8" height="22" rx="2" fill="#5C4600" opacity="0.8"/>
+                <rect x="137" y="168" width="8" height="22" rx="2" fill="#5C4600" opacity="0.8"/>
+                <!-- Book on chair -->
+                <rect x="60" y="135" width="35" height="25" rx="2" fill="#c9a84c" opacity="0.9" transform="rotate(-8 60 135)"/>
+                <rect x="63" y="138" width="29" height="19" rx="1" fill="#e3cc7a" opacity="0.7" transform="rotate(-8 63 138)"/>
+                <!-- Phonics tiles -->
+                <rect x="100" y="138" width="16" height="16" rx="2" fill="rgba(255,255,255,0.9)"/>
+                <text x="104" y="151" font-family="serif" font-size="11" fill="#2c4a3e" font-weight="bold">A</text>
+                <rect x="118" y="140" width="16" height="16" rx="2" fill="rgba(255,255,255,0.9)"/>
+                <text x="122" y="153" font-family="serif" font-size="11" fill="#2c4a3e" font-weight="bold">B</text>
+              </svg>
+            </div>
+            <div class="hero-image-label">The Reading Chair</div>
+            <div class="hero-image-sublabel">Replace with professional photo</div>
+          </div>
+        </div>
+        <div class="trust-badge trust-badge-top">
+          <div class="badge-icon badge-icon-green">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          </div>
+          <div class="badge-text">Orton-Gillingham<span>Certified Specialist</span></div>
+        </div>
+        <div class="trust-badge trust-badge-bottom">
+          <div class="badge-icon badge-icon-gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div class="badge-text">Faith-Based<span>Whole-Child Approach</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST BAR ===== -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-bar-inner">
+      <div class="trust-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        Evidence-Based Methods
+      </div>
+      <div class="trust-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Multisensory Instruction
+      </div>
+      <div class="trust-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Faith-Grounded Care
+      </div>
+      <div class="trust-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        McKinney, TX
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-frame fade-up">
+        <div class="about-avatar">
+          <span class="about-avatar-text">M</span>
+        </div>
+        <p class="about-quote">"Every child is a masterpiece. My job is to help them turn the page to see the beautiful story God has already written inside them."</p>
+        <p class="about-quote-attr">— Marisa, Reading Specialist</p>
+      </div>
+      <div class="about-content fade-up">
+        <h2>Meet Marisa</h2>
+        <hr class="gold-rule">
+        <p>With decades of experience in reading education and a heart for every learner, Marisa founded this practice on one belief: no child should feel left behind when they open a book.</p>
+        <p>Marisa's Reading Chair isn't a franchise or a learning center. It's a private, expert-led practice where your child receives the undivided attention of a specialist who has devoted her career to the science—and soul—of reading.</p>
+        <ul class="credential-list">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            Orton-Gillingham trained Reading Specialist
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            Decades of classroom and intervention experience
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            Personalized, 1:1 instruction in McKinney, TX
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            Faith-integrated, whole-child philosophy
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES: SCIENCE & SPIRIT ===== -->
+<section class="features" id="approach">
+  <div class="container">
+    <div class="section-header fade-up">
+      <h2>Science & Spirit</h2>
+      <hr class="gold-rule-center">
+      <p>Clinical excellence meets a grandmother's heart. Our approach weaves evidence-based reading science with a faith-grounded commitment to every child's potential.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon feature-icon-1">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <h3>The Expert Lens</h3>
+        <p>Using the Science of Reading—multisensory, evidence-based methods—to identify and bridge the specific gaps in your child's literacy profile. No guesswork. No one-size-fits-all.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon feature-icon-2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>The Spiritual Anchor</h3>
+        <p>A "Whole Child" approach that views your student as a masterpiece, building confidence through encouragement and prayerful mentorship. We nurture the reader and the person.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon feature-icon-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>Visible Victory</h3>
+        <p>Data-driven progress tracking. You'll see exactly how your child is moving from "struggling" to "fluent" on our Mastery Dashboard. Real results, clearly shown.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SUCCESS PATH ===== -->
+<section class="success-path" id="path">
+  <div class="container">
+    <div class="section-header fade-up">
+      <h2>The Path to Confident Reading</h2>
+      <hr class="gold-rule-center">
+      <p>From first assessment to independent reading, every step is guided with expertise and care.</p>
+    </div>
+    <div class="path-grid fade-up">
+      <div class="path-connector"></div>
+      <div class="path-step">
+        <div class="path-number path-number-1">1</div>
+        <h3>The Assessment</h3>
+        <p class="path-subtitle">Discovery</p>
+        <p>A comprehensive evaluation of your child's reading profile—phonemic awareness, decoding, fluency, and comprehension—to pinpoint exactly where the gaps are.</p>
+      </div>
+      <div class="path-step">
+        <div class="path-number path-number-2">2</div>
+        <h3>The Chair</h3>
+        <p class="path-subtitle">1:1 Specialized Instruction</p>
+        <p>Personalized, Orton-Gillingham based sessions designed around your child's unique needs. Multisensory, engaging, and grounded in faith and encouragement.</p>
+      </div>
+      <div class="path-step">
+        <div class="path-number path-number-3">3</div>
+        <h3>The Launch</h3>
+        <p class="path-subtitle">Independent, Confident Reading</p>
+        <p>Watch your child go from struggling to soaring. With mastery data to prove it, your reader is equipped for a lifetime of literacy and learning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESOURCE LIBRARY ===== -->
+<section class="resources" id="resources">
+  <div class="container">
+    <div class="resources-grid">
+      <div class="resources-content fade-up">
+        <h2>The 'Chairside' Resource Library</h2>
+        <hr class="gold-rule">
+        <p>Exclusive resources hand-picked by Marisa to support your child's reading journey at home. Faith-based reading lists, phonics activities, and encouragement for the whole family.</p>
+        <ul class="resource-preview-list">
+          <li>
+            <div class="resource-thumb resource-thumb-1">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2c4a3e" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div class="resource-info">
+              <h4>Faith-Based Reading Lists</h4>
+              <p>Curated by grade level and reading stage</p>
+            </div>
+            <span class="resource-lock">Members</span>
+          </li>
+          <li>
+            <div class="resource-thumb resource-thumb-2">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a88a32" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            </div>
+            <div class="resource-info">
+              <h4>"At-Home Phonics Fun" Videos</h4>
+              <p>Engaging activities parents can do at home</p>
+            </div>
+            <span class="resource-lock">Members</span>
+          </li>
+          <li>
+            <div class="resource-thumb resource-thumb-3">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2c4a3e" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="resource-info">
+              <h4>Progress Tracking Templates</h4>
+              <p>Monitor milestones between sessions</p>
+            </div>
+            <span class="resource-lock">Members</span>
+          </li>
+        </ul>
+      </div>
+      <div class="resources-visual fade-up">
+        <div class="resources-visual-icon">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#2c4a3e" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </div>
+        <h3>Your Private Library</h3>
+        <p>Unlock Marisa's hand-picked collection of tools, guides, and encouragement when you join the practice.</p>
+        <a href="#contact" class="resources-unlock-btn">
+          Get Access
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIAL ===== -->
+<section class="testimonial">
+  <div class="container">
+    <div class="testimonial-content fade-up">
+      <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+      <p class="testimonial-quote">"Within just a few weeks, my daughter went from dreading reading time to asking for 'one more chapter.' Marisa didn't just teach her phonics—she gave her confidence. This is a place of grace and expertise."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">S</div>
+        <div>
+          <div class="testimonial-name">Sample Parent Testimonial</div>
+          <div class="testimonial-role">Parent of a 2nd Grader — Placeholder</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-content fade-up">
+      <h2>Ready to Pull Up a Chair?</h2>
+      <p>Book your free 15-minute consultation and discover how personalized, faith-based reading intervention can unlock your child's potential.</p>
+      <a href="#" class="cta-button">
+        Book Your Free Consultation
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="cta-note">Free 15-minute consultation &bull; No obligation &bull; McKinney, TX &amp; Virtual</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Marisa's Reading Chair</div>
+        <p>Where the Science of Reading meets a faith-based commitment to your child's flourishing. McKinney, Texas.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Marisa</a></li>
+          <li><a href="#approach">Our Approach</a></li>
+          <li><a href="#path">The Path</a></li>
+          <li><a href="#resources">Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#contact">Book a Consultation</a></li>
+          <li><a href="mailto:hello@marisasreadingchair.com">hello@marisasreadingchair.com</a></li>
+          <li><a href="#">McKinney, TX</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Marisa's Reading Chair. All rights reserved. Built with <a href="#">love and literacy</a>.
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// Nav scroll effect
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Fade-up on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Mobile menu toggle
+const mobileBtn = document.querySelector('.mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+if (mobileBtn) {
+  mobileBtn.addEventListener('click', () => {
+    const isOpen = navLinks.style.display === 'flex';
+    navLinks.style.display = isOpen ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '72px';
+    navLinks.style.left = '0';
+    navLinks.style.right = '0';
+    navLinks.style.background = 'var(--cream)';
+    navLinks.style.padding = '20px 24px';
+    navLinks.style.boxShadow = '0 8px 20px rgba(0,0,0,0.08)';
+    navLinks.style.gap = '16px';
+  });
+}
+</script>
+</body>
+</html>
