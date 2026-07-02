@@ -560,8 +560,7 @@
 <!-- STUDENTS VIEW -->
 <div class="container" id="view-students">
   <div class="sample-banner" id="sample-banner">
-    <span><strong>Sample data loaded.</strong> Two example students with session history so you can see how the app works. You can clear this anytime.</span>
-    <button class="btn btn-sm btn-outline" onclick="clearSampleData()">Clear Samples</button>
+    <span><strong>Sample data loaded.</strong> Two example students with session history so you can see how the app works. Explore the tabs, try generating a report, and check the Progress Trends view.</span>
   </div>
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
@@ -1007,15 +1006,6 @@ function deleteStudent(id) {
   toast('Student removed.');
 }
 
-function clearSampleData() {
-  if (!confirm('Clear all sample data? This will remove Lucas and Sofia and their sessions. Your own data will not be affected.')) return;
-  data.students = data.students.filter(s => !s.id.startsWith('sample_'));
-  data.sessions = data.sessions.filter(s => !s.id.startsWith('ses_l') && !s.id.startsWith('ses_s'));
-  data._hasSamples = false;
-  saveData(data);
-  renderStudents();
-  toast('Sample data cleared.');
-}
 
 function startSessionFor(studentId) {
   showView('session');
