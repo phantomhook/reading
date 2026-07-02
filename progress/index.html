@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marisa's Reading Chair - Progress Reports</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #2c4a3e;
+    --forest-light: #3a6355;
+    --gold: #c9a84c;
+    --gold-light: #d4ba6a;
+    --oatmeal: #f5f0e8;
+    --cream: #faf8f4;
+    --text-dark: #2c2c2c;
+    --text-mid: #5a5a5a;
+    --text-light: #888;
+    --border: #e0dbd3;
+    --danger: #c0392b;
+    --green: #27ae60;
+    --green-light: #e8f5e9;
+    --amber: #f39c12;
+    --amber-light: #fef9e7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+
+  /* Top nav */
+  .top-bar {
+    background: var(--forest);
+    color: white;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .top-bar h1 { font-size: 1.35rem; font-weight: 600; letter-spacing: 0.3px; }
+  .top-bar h1 span { color: var(--gold); }
+  .top-bar nav { display: flex; gap: 4px; }
+  .top-bar nav button {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    border: none;
+    padding: 8px 18px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .top-bar nav button:hover { color: white; background: rgba(255,255,255,0.1); }
+  .top-bar nav button.active { color: var(--gold); background: rgba(201,168,76,0.15); }
+
+  /* Layout */
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Cards */
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .card h2 { font-size: 1.5rem; color: var(--forest); margin-bottom: 6px; }
+  .card h3 { font-size: 1.2rem; color: var(--forest); margin-bottom: 12px; }
+  .card-subtitle { color: var(--text-mid); font-size: 0.9rem; margin-bottom: 20px; }
+
+  /* Buttons */
+  .btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-primary { background: var(--forest); color: white; }
+  .btn-primary:hover { background: var(--forest-light); }
+  .btn-gold { background: var(--gold); color: white; }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-outline { background: transparent; color: var(--forest); border: 1.5px solid var(--forest); }
+  .btn-outline:hover { background: var(--forest); color: white; }
+  .btn-danger { background: transparent; color: var(--danger); border: 1.5px solid var(--danger); }
+  .btn-danger:hover { background: var(--danger); color: white; }
+  .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* Sample data banner */
+  .sample-banner {
+    background: var(--amber-light);
+    border: 1.5px solid var(--amber);
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+  }
+  .sample-banner strong { color: var(--text-dark); }
+
+  /* Forms */
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  input[type="text"], input[type="date"], select, textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background: var(--cream);
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  .form-row { margin-bottom: 18px; }
+  .form-row-inline { display: flex; gap: 16px; }
+  .form-row-inline > div { flex: 1; }
+
+  /* Student list */
+  .student-list { display: grid; gap: 12px; }
+  .student-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--cream);
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .student-item:hover { border-color: var(--gold); background: white; }
+  .student-item .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--forest);
+  }
+  .student-item .meta { color: var(--text-light); font-size: 0.85rem; }
+  .student-item .actions { display: flex; gap: 6px; }
+
+  /* Skill area chips */
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .skill-chip {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .skill-chip.selected { background: var(--forest); color: white; border-color: var(--forest); }
+  .skill-chip:hover:not(.selected) { border-color: var(--gold); }
+
+  /* Session notes per skill */
+  .skill-note-block {
+    background: var(--oatmeal);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    border-left: 4px solid var(--gold);
+  }
+  .skill-note-block h4 { color: var(--forest); font-size: 1.05rem; margin-bottom: 8px; }
+  .skill-note-block textarea { background: white; }
+
+  /* Progress rating */
+  .progress-rating { display: flex; gap: 4px; margin: 10px 0 6px; }
+  .progress-rating .rating-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+    transition: all 0.2s;
+  }
+  .progress-rating .rating-dot:hover { border-color: var(--gold); }
+  .progress-rating .rating-dot.active { border-color: var(--forest); color: white; }
+  .progress-rating .rating-dot.active.r1 { background: #e74c3c; }
+  .progress-rating .rating-dot.active.r2 { background: var(--amber); }
+  .progress-rating .rating-dot.active.r3 { background: var(--gold); }
+  .progress-rating .rating-dot.active.r4 { background: var(--green); }
+  .progress-rating .rating-dot.active.r5 { background: var(--forest); }
+  .rating-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    padding: 0 2px;
+    width: 172px;
+  }
+
+  /* Report preview */
+  .report-preview {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 40px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .report-preview h2 {
+    text-align: center;
+    color: var(--forest);
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+  }
+  .report-preview .report-subtitle {
+    text-align: center;
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .report-preview h3 {
+    color: var(--forest);
+    font-size: 1.15rem;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .report-preview p { margin-bottom: 12px; color: var(--text-dark); }
+  .report-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 2px solid var(--gold);
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--forest);
+    font-size: 1rem;
+    font-style: italic;
+  }
+
+  /* Progress snapshot in report */
+  .progress-snapshot {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0 24px;
+  }
+  .snapshot-card {
+    background: var(--oatmeal);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .snapshot-card .snapshot-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+  }
+  .snapshot-card .snapshot-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--forest);
+  }
+  .snapshot-card .snapshot-change {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .snapshot-card .snapshot-change.up { color: var(--green); }
+  .snapshot-card .snapshot-change.same { color: var(--text-light); }
+
+  /* Trend bars */
+  .trend-section { margin-bottom: 28px; }
+  .trend-section h3 {
+    font-size: 1.15rem;
+    color: var(--forest);
+    margin-bottom: 14px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .trend-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .trend-label {
+    width: 140px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    flex-shrink: 0;
+  }
+  .trend-bar-track {
+    flex: 1;
+    height: 24px;
+    background: var(--oatmeal);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .trend-bar-fill {
+    height: 100%;
+    border-radius: 12px;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: white;
+    min-width: 28px;
+  }
+  .trend-bar-fill.level-1 { background: #e74c3c; }
+  .trend-bar-fill.level-2 { background: var(--amber); }
+  .trend-bar-fill.level-3 { background: var(--gold); }
+  .trend-bar-fill.level-4 { background: var(--green); }
+  .trend-bar-fill.level-5 { background: var(--forest); }
+
+  .trend-dots {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    position: relative;
+    height: 40px;
+  }
+  .trend-dot-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .trend-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .trend-dot-date {
+    font-size: 0.6rem;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+  .trend-line-container {
+    flex: 1;
+    height: 80px;
+    position: relative;
+  }
+  .trend-line-svg { width: 100%; height: 100%; }
+
+  /* Trend legend */
+  .trend-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background: var(--oatmeal);
+    border-radius: 8px;
+  }
+  .trend-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-mid);
+  }
+  .trend-legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+  }
+
+  /* Session timeline */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    background: var(--cream);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 18px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .timeline-date {
+    font-weight: 700;
+    color: var(--forest);
+    font-size: 0.88rem;
+  }
+  .timeline-skills {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    margin-top: 4px;
+  }
+  .timeline-ratings {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .timeline-rating-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: white;
+  }
+
+  /* Empty state */
+  .empty-state { text-align: center; padding: 48px 20px; color: var(--text-light); }
+  .empty-state h3 { color: var(--text-mid); margin-bottom: 8px; }
+
+  /* Divider */
+  .gold-rule { height: 2px; background: var(--gold); margin: 24px 0; opacity: 0.4; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--forest);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 200;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 150;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 14px;
+    padding: 32px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  .modal h2 { margin-bottom: 20px; }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .top-bar, .container > .card:not(.report-card), .btn-group, .no-print, .sample-banner { display: none !important; }
+    .container { max-width: 100%; padding: 0; }
+    .report-card { border: none; box-shadow: none; margin: 0; padding: 20px; }
+    .report-preview { border: none; padding: 20px; }
+    .report-preview h2 { font-size: 1.4rem; }
+    .snapshot-card { border: 1px solid #ddd; }
+    .trend-bar-track { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .trend-bar-fill { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .top-bar { padding: 12px 16px; flex-direction: column; gap: 10px; }
+    .top-bar nav { width: 100%; justify-content: center; flex-wrap: wrap; }
+    .container { padding: 20px 16px; }
+    .card { padding: 20px; }
+    .form-row-inline { flex-direction: column; gap: 0; }
+    .report-preview { padding: 24px; }
+    .student-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .student-item .actions { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1><span>Marisa's Reading Chair</span> - Progress Reports</h1>
+  <nav>
+    <button class="active" data-view="students" onclick="showView('students', this)">Students</button>
+    <button data-view="session" onclick="showView('session', this)">Log Session</button>
+    <button data-view="report" onclick="showView('report', this)">Generate Report</button>
+    <button data-view="trends" onclick="showView('trends', this)">Progress Trends</button>
+    <button data-view="templates" onclick="showView('templates', this)">Skill Templates</button>
+  </nav>
+</div>
+
+<!-- STUDENTS VIEW -->
+<div class="container" id="view-students">
+  <div class="sample-banner" id="sample-banner">
+    <span><strong>Sample data loaded.</strong> Two example students with session history so you can see how the app works. You can clear this anytime.</span>
+    <button class="btn btn-sm btn-outline" onclick="clearSampleData()">Clear Samples</button>
+  </div>
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div>
+        <h2>Students</h2>
+        <p class="card-subtitle">Select a student to view sessions or log new notes.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openAddStudent()">+ Add Student</button>
+    </div>
+    <div class="student-list" id="student-list"></div>
+  </div>
+</div>
+
+<!-- LOG SESSION VIEW -->
+<div class="container" id="view-session" style="display:none;">
+  <div class="card">
+    <h2>Log Session Notes</h2>
+    <p class="card-subtitle">Quick observations from today's session. This takes about 2 minutes.</p>
+    <div class="gold-rule"></div>
+    <div class="form-row-inline">
+      <div class="form-row">
+        <label>Student</label>
+        <select id="session-student"></select>
+      </div>
+      <div class="form-row">
+        <label>Session Date</label>
+        <input type="date" id="session-date">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Skill Areas Covered (tap to select)</label>
+      <div class="skill-chips" id="session-skills"></div>
+    </div>
+    <div id="session-note-fields"></div>
+    <div class="form-row">
+      <label>General Notes (optional)</label>
+      <textarea id="session-general" placeholder="Anything else worth noting about this session..."></textarea>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-gold" onclick="saveSession()">Save Session Notes</button>
+      <button class="btn btn-outline" onclick="showView('students')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- GENERATE REPORT VIEW -->
+<div class="container" id="view-report" style="display:none;">
+  <div class="card no-print">
+    <h2>Generate Progress Report</h2>
+    <p class="card-subtitle">Select a student and date range to compile a parent-ready report.</p>
+    <div class="gold-rule"></div>
+    <div class="form-row-inline">
+      <div class="form-row">
+        <label>Student</label>
+        <select id="report-student" onchange="previewReport()"></select>
+      </div>
+      <div class="form-row">
+        <label>From</label>
+        <input type="date" id="report-from" onchange="previewReport()">
+      </div>
+      <div class="form-row">
+        <label>To</label>
+        <input type="date" id="report-to" onchange="previewReport()">
+      </div>
+    </div>
+    <div class="form-row">
+      <label style="margin-bottom:8px;">Include in report</label>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <label style="text-transform:none; font-weight:400; font-size:0.9rem; display:flex; align-items:center; gap:6px; cursor:pointer;">
+          <input type="checkbox" id="include-trends" checked> Progress trends
+        </label>
+        <label style="text-transform:none; font-weight:400; font-size:0.9rem; display:flex; align-items:center; gap:6px; cursor:pointer;">
+          <input type="checkbox" id="include-snapshot" checked> Session snapshot
+        </label>
+      </div>
+    </div>
+    <div class="btn-group" style="margin-bottom: 0;">
+      <button class="btn btn-primary" onclick="previewReport()">Preview Report</button>
+      <button class="btn btn-gold no-print" onclick="printReport()">Export as PDF</button>
+    </div>
+  </div>
+  <div class="card report-card" id="report-output" style="display:none;">
+    <div class="report-preview" id="report-content"></div>
+  </div>
+</div>
+
+<!-- PROGRESS TRENDS VIEW -->
+<div class="container" id="view-trends" style="display:none;">
+  <div class="card">
+    <h2>Progress Trends</h2>
+    <p class="card-subtitle">Visual overview of student growth across skill areas over time.</p>
+    <div class="gold-rule"></div>
+    <div class="form-row-inline">
+      <div class="form-row">
+        <label>Student</label>
+        <select id="trends-student" onchange="renderTrends()"></select>
+      </div>
+      <div class="form-row">
+        <label>Time Range</label>
+        <select id="trends-range" onchange="renderTrends()">
+          <option value="30">Last 30 days</option>
+          <option value="60">Last 60 days</option>
+          <option value="90" selected>Last 90 days</option>
+          <option value="180">Last 6 months</option>
+          <option value="all">All time</option>
+        </select>
+      </div>
+    </div>
+    <div id="trends-content"></div>
+  </div>
+</div>
+
+<!-- SKILL TEMPLATES VIEW -->
+<div class="container" id="view-templates" style="display:none;">
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div>
+        <h2>Skill Area Templates</h2>
+        <p class="card-subtitle">Reusable descriptions that appear in every report. Write once, use forever.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openAddSkill()">+ Add Skill Area</button>
+    </div>
+    <div class="gold-rule"></div>
+    <div id="template-list"></div>
+  </div>
+</div>
+
+<!-- ADD STUDENT MODAL -->
+<div class="modal-overlay" id="modal-student">
+  <div class="modal">
+    <h2>Add Student</h2>
+    <div class="form-row">
+      <label>First Name</label>
+      <input type="text" id="new-student-first" placeholder="Lucas">
+    </div>
+    <div class="form-row">
+      <label>Last Name</label>
+      <input type="text" id="new-student-last" placeholder="Dominguez">
+    </div>
+    <div class="form-row">
+      <label>Grade</label>
+      <select id="new-student-grade">
+        <option value="K">Kindergarten</option>
+        <option value="1st">1st Grade</option>
+        <option value="2nd" selected>2nd Grade</option>
+        <option value="3rd">3rd Grade</option>
+        <option value="4th">4th Grade</option>
+        <option value="5th">5th Grade</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Parent/Guardian Name (optional)</label>
+      <input type="text" id="new-student-parent" placeholder="Maria Dominguez">
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-gold" onclick="addStudent()">Add Student</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-student')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD SKILL MODAL -->
+<div class="modal-overlay" id="modal-skill">
+  <div class="modal">
+    <h2 id="skill-modal-title">Add Skill Area</h2>
+    <div class="form-row">
+      <label>Skill Name</label>
+      <input type="text" id="new-skill-name" placeholder="e.g., Sight Words">
+    </div>
+    <div class="form-row">
+      <label>Parent-Facing Description</label>
+      <textarea id="new-skill-desc" rows="5" placeholder="This description appears in every report. Explain this skill area in parent-friendly language."></textarea>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-gold" onclick="saveSkill()">Save</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-skill')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA LAYER ──────────────────────────────────────────────
+const STORAGE_KEY = 'mrc_progress_data';
+const RATING_LABELS = ['', 'Needs Support', 'Developing', 'Progressing', 'Strong', 'Excelling'];
+const RATING_COLORS = ['', '#e74c3c', '#f39c12', '#c9a84c', '#27ae60', '#2c4a3e'];
+
+function loadData() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) {
+    const d = JSON.parse(raw);
+    if (d._version >= 2) return d;
+  }
+  return getSampleData();
+}
+
+function saveData(d) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+}
+
+function getDefaultSkills() {
+  return [
+    { id: 's1', name: 'Sight Words', description: 'Sight words are common, frequently used words that readers are encouraged to recognize instantly by sight, rather than sounding them out. Mastering these foundational words (like "the," "and," "is," and "was") increases reading speed, fluency, and overall comprehension.' },
+    { id: 's2', name: 'Reading & Decoding', description: 'Reading accuracy and decoding skills involve identifying base words, noting suffixes, and recognizing short and long vowel patterns. Students learn to code words systematically before reading them, building the habit of careful, accurate decoding rather than guessing.' },
+    { id: 's3', name: 'Reading Comprehension', description: 'Reading comprehension is the ability to understand and make meaning from text. Students practice finding evidence in passages, monitoring their own understanding, and making adjustments such as re-reading, activating background knowledge, and asking questions.' },
+    { id: 's4', name: 'Spelling', description: 'Spelling instruction follows structured patterns and rules from the Orton-Gillingham approach. Students learn spelling formulas and rules that help them understand when and why certain letter patterns are used, building reliable spelling strategies rather than relying on memorization alone.' },
+    { id: 's5', name: 'Handwriting', description: 'Handwriting instruction focuses on proper letter formation, approach strokes, and fluency in cursive writing. Legible handwriting supports spelling retention and written expression.' },
+    { id: 's6', name: 'Writing', description: 'Writing instruction covers the full writing process: pre-writing, collecting background knowledge, finding supporting evidence, refining topics, and drafting. Students also practice sentence structure, spacing, and using high-frequency words to improve legibility and expression.' }
+  ];
+}
+
+// ── SAMPLE DATA ─────────────────────────────────────────────
+function getSampleData() {
+  return {
+    _version: 2,
+    _hasSamples: true,
+    students: [
+      { id: 'sample_lucas', firstName: 'Lucas', lastName: 'Dominguez', grade: '3rd', parentName: 'Maria Dominguez', createdAt: '2026-06-01T00:00:00Z' },
+      { id: 'sample_sofia', firstName: 'Sofia', lastName: 'Martinez', grade: '4th', parentName: 'Ana Martinez', createdAt: '2026-05-01T00:00:00Z' }
+    ],
+    sessions: [
+      // ── LUCAS: Based on Marisa's actual report ──
+      {
+        id: 'ses_l1', studentId: 'sample_lucas', date: '2026-06-03',
+        skillNotes: {
+          s1: 'Lucas is working on recognizing sight words instantly and spelling them correctly. We are using small green flash cards with the word on one side and he writes a sentence with the word on the other side.',
+          s2: 'Lucas is working on reading accuracy by coding and reading basewords, noting the suffixes and short/long vowels before decoding. He is making substitution errors like reading "marks" for "markings" or "tools" for "tool."',
+          s5: 'Lucas is doing well with the review of the lowercase alphabet and approach strokes in cursive handwriting.'
+        },
+        ratings: { s1: 2, s2: 2, s5: 3 },
+        generalNotes: 'Good energy today. Lucas is engaged and willing to try.',
+        createdAt: '2026-06-03T16:00:00Z'
+      },
+      {
+        id: 'ses_l2', studentId: 'sample_lucas', date: '2026-06-10',
+        skillNotes: {
+          s1: 'On his first spelling quiz, Lucas was able to spell 15 out of the first 25 sight words correctly. He can practice these at home with magnetic letters or a white board.',
+          s4: 'Reviewing the FLOSS rule (MTA Kit 1 Spelling) - one syllable words with short vowels that end in f, l, and s with double ff, ll, or ss. Examples: staff, sill, pass.',
+          s6: 'Lucas is learning how to begin the writing process with pre-writing, collecting background knowledge, finding supporting evidence, and refining his topic before starting to draft his writing about pomeranian dogs.'
+        },
+        ratings: { s1: 2, s4: 2, s6: 2 },
+        generalNotes: '',
+        createdAt: '2026-06-10T16:00:00Z'
+      },
+      {
+        id: 'ses_l3', studentId: 'sample_lucas', date: '2026-06-17',
+        skillNotes: {
+          s2: 'Continuing to work on coding basewords before decoding. Lucas is taking more time to code and rehearse words. Substitution errors are decreasing.',
+          s3: 'Lucas is reading short passages and practicing how to go back to find evidence in text. He is learning to monitor comprehension and make adjustments such as re-reading, using background knowledge, and asking questions.',
+          s4: 'Learning two spelling formulas from MTA Kit 2 - when to use k vs ck in one syllable words with short vowels (truck, pack), and when to use k with vowel digraphs or consonants before k (book, bank).'
+        },
+        ratings: { s2: 2, s3: 2, s4: 2 },
+        generalNotes: '',
+        createdAt: '2026-06-17T16:00:00Z'
+      },
+      {
+        id: 'ses_l4', studentId: 'sample_lucas', date: '2026-06-24',
+        skillNotes: {
+          s1: 'Sight word recognition is improving. Lucas correctly identified 19 of 25 words on his second quiz, up from 15. Flash card practice at home is helping.',
+          s6: 'When given 8 minutes to respond to a question about favorite activities, Lucas was able to write four sentences using phonetic spelling. He is working on putting spaces between words and using sentence starters to make his writing more legible.',
+          s5: 'Cursive lowercase alphabet review is progressing well. Approach strokes are becoming more fluid and consistent.'
+        },
+        ratings: { s1: 3, s6: 2, s5: 3 },
+        generalNotes: 'Lucas mentioned practicing sight words with his mom at home. Great to see home reinforcement.',
+        createdAt: '2026-06-24T16:00:00Z'
+      },
+
+      // ── SOFIA: Robust sample showing clear progression over 8 weeks ──
+      {
+        id: 'ses_s1', studentId: 'sample_sofia', date: '2026-05-06',
+        skillNotes: {
+          s1: 'Initial assessment: Sofia recognized 30 of 50 grade-level sight words. She is confusing similar words like "where/were" and "there/their/they\'re."',
+          s2: 'Sofia is guessing at unfamiliar words based on first letters rather than decoding. She read "beautiful" as "because" and "important" as "impossible."',
+          s3: 'Sofia can retell basic story events but struggles to identify main idea or supporting details when asked. She tends to focus on minor details she found interesting.',
+          s4: 'Baseline spelling assessment: Sofia spelled 12 of 20 grade-level words correctly. She is dropping silent e before suffixes and confusing vowel teams.'
+        },
+        ratings: { s1: 2, s2: 1, s3: 2, s4: 2 },
+        generalNotes: 'First session. Sofia is shy but cooperative. She said she "hates reading" but warmed up during the phonics card activity.',
+        createdAt: '2026-05-06T16:00:00Z'
+      },
+      {
+        id: 'ses_s2', studentId: 'sample_sofia', date: '2026-05-13',
+        skillNotes: {
+          s1: 'Working on the where/were and there/their/they\'re confusion using color-coded sentence sorting. Sofia is starting to self-correct when she reads "were" in place of "where."',
+          s2: 'Introduced the systematic decoding approach: underline base word, circle suffix, mark vowels. Sofia is resistant to slowing down but did decode 6 of 10 practice words correctly when using the system.',
+          s4: 'Reviewing silent e rule with -ing and -ed suffixes. Sofia can state the rule but is not yet applying it consistently. We used color tiles to build and rebuild words.'
+        },
+        ratings: { s1: 2, s2: 2, s4: 2 },
+        generalNotes: '',
+        createdAt: '2026-05-13T16:00:00Z'
+      },
+      {
+        id: 'ses_s3', studentId: 'sample_sofia', date: '2026-05-20',
+        skillNotes: {
+          s2: 'Sofia decoded 8 of 10 multisyllabic words correctly using the coding system without prompting. She is beginning to self-correct when she catches a guess.',
+          s3: 'Practiced identifying main idea using a "who did what and why" framework. Sofia correctly identified the main idea in 2 of 3 short passages today.',
+          s6: 'Introduced brainstorming webs for organizing ideas before writing. Sofia created a web about her favorite animal and generated 5 supporting details with minimal prompting.'
+        },
+        ratings: { s2: 3, s3: 2, s6: 2 },
+        generalNotes: 'Sofia volunteered that she read a chapter book page at home this week. She seemed proud of herself.',
+        createdAt: '2026-05-20T16:00:00Z'
+      },
+      {
+        id: 'ses_s4', studentId: 'sample_sofia', date: '2026-05-27',
+        skillNotes: {
+          s1: 'Sight word quiz: 38 of 50 correct, up from 30. The where/were confusion is mostly resolved. Still working on there/their/they\'re.',
+          s2: 'Sofia is now using the coding system independently about 70% of the time. When she does use it, her accuracy is strong. Working on building the habit so it becomes automatic.',
+          s4: 'Silent e rule application is improving. Sofia correctly applied the rule in 8 of 10 practice words today. Introduced the doubling rule for short vowel words (running, sitting).'
+        },
+        ratings: { s1: 3, s2: 3, s4: 3 },
+        generalNotes: '',
+        createdAt: '2026-05-27T16:00:00Z'
+      },
+      {
+        id: 'ses_s5', studentId: 'sample_sofia', date: '2026-06-03',
+        skillNotes: {
+          s3: 'Sofia identified the main idea correctly in 3 of 3 passages today. She is now working on finding specific text evidence to support her answers rather than relying on memory.',
+          s6: 'Sofia wrote a 5-sentence paragraph about her summer plans using her brainstorming web. Sentences are complete and mostly on-topic. Working on transition words between sentences.',
+          s4: 'Doubling rule practice: Sofia correctly applied the rule in 7 of 10 words. She is confusing when to double vs when to just add the suffix. Using a decision tree chart to help.'
+        },
+        ratings: { s3: 3, s6: 3, s4: 3 },
+        generalNotes: 'Sofia told me she finished her first chapter book at home. Major milestone. She wants to read another one by the same author.',
+        createdAt: '2026-06-03T16:00:00Z'
+      },
+      {
+        id: 'ses_s6', studentId: 'sample_sofia', date: '2026-06-10',
+        skillNotes: {
+          s1: 'Sight word quiz: 43 of 50 correct. Strong improvement. The there/their/they\'re set is the last major confusion area. Using context sentence practice to reinforce.',
+          s2: 'Sofia is now self-correcting about 80% of the time when she catches herself guessing. Her reading fluency has noticeably improved as accuracy increases.',
+          s3: 'Introduced "prove it" strategy - Sofia must point to the exact sentence in the text that supports her answer. She found this challenging at first but located evidence in 4 of 5 questions by end of session.'
+        },
+        ratings: { s1: 4, s2: 4, s3: 3 },
+        generalNotes: '',
+        createdAt: '2026-06-10T16:00:00Z'
+      },
+      {
+        id: 'ses_s7', studentId: 'sample_sofia', date: '2026-06-17',
+        skillNotes: {
+          s4: 'Spelling assessment: 17 of 20 grade-level words correct, up from 12 at baseline. Sofia is consistently applying the silent e and doubling rules. Remaining errors are in less common vowel team patterns.',
+          s6: 'Sofia wrote a full 3-paragraph response to a reading passage. She used a graphic organizer independently, included transition words, and stayed on topic throughout. Her strongest writing piece so far.',
+          s2: 'Sofia read a grade-level passage at 95% accuracy today, up from approximately 75% at initial assessment. She is using the decoding system automatically for unfamiliar words.'
+        },
+        ratings: { s4: 4, s6: 4, s2: 4 },
+        generalNotes: 'Sofia said reading is "not so bad anymore." She is visibly more confident and willing to attempt difficult words instead of skipping them.',
+        createdAt: '2026-06-17T16:00:00Z'
+      },
+      {
+        id: 'ses_s8', studentId: 'sample_sofia', date: '2026-06-24',
+        skillNotes: {
+          s1: 'Sight word mastery check: 47 of 50 correct. Sofia has internalized the high-frequency words and is reading them fluently in context. Remaining 3 words added to personal review list.',
+          s3: 'Sofia independently used the "prove it" strategy on a new passage without prompting. She located text evidence for all 5 comprehension questions and explained her reasoning clearly.',
+          s6: 'Timed writing: Sofia produced 8 complete sentences in 10 minutes on a new topic. Sentences varied in structure and she self-corrected two spelling errors during writing.'
+        },
+        ratings: { s1: 4, s3: 4, s6: 4 },
+        generalNotes: 'Outstanding session. Sofia is reading at grade level in controlled passages. Recommended she try independent reading 15 minutes daily over summer to maintain momentum.',
+        createdAt: '2026-06-24T16:00:00Z'
+      }
+    ],
+    skills: getDefaultSkills()
+  };
+}
+
+let data = loadData();
+let editingSkillId = null;
+
+// ── VIEW MANAGEMENT ─────────────────────────────────────────
+function showView(view, btn) {
+  document.querySelectorAll('.container').forEach(el => el.style.display = 'none');
+  document.getElementById('view-' + view).style.display = 'block';
+  document.querySelectorAll('.top-bar nav button').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else {
+    const match = document.querySelector(`.top-bar nav button[data-view="${view}"]`);
+    if (match) match.classList.add('active');
+  }
+  if (view === 'students') renderStudents();
+  if (view === 'session') initSessionView();
+  if (view === 'report') initReportView();
+  if (view === 'trends') initTrendsView();
+  if (view === 'templates') renderTemplates();
+}
+
+// ── STUDENTS ────────────────────────────────────────────────
+function renderStudents() {
+  const banner = document.getElementById('sample-banner');
+  banner.style.display = data._hasSamples ? 'flex' : 'none';
+
+  const el = document.getElementById('student-list');
+  if (data.students.length === 0) {
+    el.innerHTML = '<div class="empty-state"><h3>No students yet</h3><p>Add your first student to get started.</p></div>';
+    return;
+  }
+  el.innerHTML = data.students.map(s => {
+    const sessions = data.sessions.filter(sess => sess.studentId === s.id);
+    const sessionCount = sessions.length;
+    const lastSession = sessions.sort((a,b) => b.date.localeCompare(a.date))[0];
+    const lastDate = lastSession ? formatDate(lastSession.date) : 'No sessions yet';
+    return `
+      <div class="student-item">
+        <div>
+          <div class="name">${s.firstName} ${s.lastName}</div>
+          <div class="meta">${s.grade} &bull; ${sessionCount} session${sessionCount !== 1 ? 's' : ''} &bull; Last: ${lastDate}</div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-sm btn-outline" onclick="event.stopPropagation(); startSessionFor('${s.id}')">Log Session</button>
+          <button class="btn btn-sm btn-gold" onclick="event.stopPropagation(); generateReportFor('${s.id}')">Report</button>
+          <button class="btn btn-sm btn-outline" onclick="event.stopPropagation(); showTrendsFor('${s.id}')">Trends</button>
+          <button class="btn btn-sm btn-danger" onclick="event.stopPropagation(); deleteStudent('${s.id}')">Remove</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function openAddStudent() {
+  document.getElementById('new-student-first').value = '';
+  document.getElementById('new-student-last').value = '';
+  document.getElementById('new-student-parent').value = '';
+  document.getElementById('modal-student').classList.add('show');
+  document.getElementById('new-student-first').focus();
+}
+
+function addStudent() {
+  const first = document.getElementById('new-student-first').value.trim();
+  const last = document.getElementById('new-student-last').value.trim();
+  const grade = document.getElementById('new-student-grade').value;
+  const parent = document.getElementById('new-student-parent').value.trim();
+  if (!first || !last) { toast('Please enter first and last name.'); return; }
+  data.students.push({ id: 'stu_' + Date.now(), firstName: first, lastName: last, grade, parentName: parent, createdAt: new Date().toISOString() });
+  saveData(data);
+  closeModal('modal-student');
+  renderStudents();
+  toast(`${first} ${last} added.`);
+}
+
+function deleteStudent(id) {
+  const s = data.students.find(s => s.id === id);
+  if (!confirm(`Remove ${s.firstName} ${s.lastName} and all their session notes?`)) return;
+  data.students = data.students.filter(s => s.id !== id);
+  data.sessions = data.sessions.filter(s => s.studentId !== id);
+  saveData(data);
+  renderStudents();
+  toast('Student removed.');
+}
+
+function clearSampleData() {
+  if (!confirm('Clear all sample data? This will remove Lucas and Sofia and their sessions. Your own data will not be affected.')) return;
+  data.students = data.students.filter(s => !s.id.startsWith('sample_'));
+  data.sessions = data.sessions.filter(s => !s.id.startsWith('ses_l') && !s.id.startsWith('ses_s'));
+  data._hasSamples = false;
+  saveData(data);
+  renderStudents();
+  toast('Sample data cleared.');
+}
+
+function startSessionFor(studentId) {
+  showView('session');
+  initSessionView();
+  document.getElementById('session-student').value = studentId;
+}
+
+function generateReportFor(studentId) {
+  showView('report');
+  initReportView();
+  document.getElementById('report-student').value = studentId;
+  previewReport();
+}
+
+function showTrendsFor(studentId) {
+  showView('trends');
+  initTrendsView();
+  document.getElementById('trends-student').value = studentId;
+  renderTrends();
+}
+
+// ── SESSION LOGGING ─────────────────────────────────────────
+function initSessionView() {
+  populateStudentDropdown('session-student');
+  document.getElementById('session-date').value = todayISO();
+  renderSessionSkillChips();
+  document.getElementById('session-note-fields').innerHTML = '';
+  document.getElementById('session-general').value = '';
+}
+
+function renderSessionSkillChips() {
+  const el = document.getElementById('session-skills');
+  el.innerHTML = data.skills.map(s =>
+    `<div class="skill-chip" data-skill-id="${s.id}" onclick="toggleSkillChip(this)">${s.name}</div>`
+  ).join('');
+}
+
+function toggleSkillChip(chip) {
+  chip.classList.toggle('selected');
+  renderSessionNoteFields();
+}
+
+function renderSessionNoteFields() {
+  const selected = [...document.querySelectorAll('#session-skills .skill-chip.selected')].map(c => c.dataset.skillId);
+  const el = document.getElementById('session-note-fields');
+  el.innerHTML = selected.map(skillId => {
+    const skill = data.skills.find(s => s.id === skillId);
+    return `
+      <div class="skill-note-block">
+        <h4>${skill.name}</h4>
+        <textarea id="note-${skillId}" placeholder="Quick observations (e.g., '15/25 sight words correct', 'substitution errors improving')..."></textarea>
+        <label style="margin-top:10px; margin-bottom:2px;">Progress Level</label>
+        <div class="progress-rating" id="rating-${skillId}">
+          ${[1,2,3,4,5].map(n => `<div class="rating-dot r${n}" data-val="${n}" onclick="setRating('${skillId}', ${n})" title="${RATING_LABELS[n]}">${n}</div>`).join('')}
+        </div>
+        <div class="rating-labels"><span>Needs Support</span><span>Excelling</span></div>
+      </div>`;
+  }).join('');
+}
+
+function setRating(skillId, val) {
+  const dots = document.querySelectorAll(`#rating-${skillId} .rating-dot`);
+  dots.forEach(d => {
+    const v = parseInt(d.dataset.val);
+    d.classList.toggle('active', v <= val);
+  });
+  // Store selected value on the container
+  document.getElementById('rating-' + skillId).dataset.selected = val;
+}
+
+function saveSession() {
+  const studentId = document.getElementById('session-student').value;
+  const date = document.getElementById('session-date').value;
+  if (!studentId) { toast('Please select a student.'); return; }
+  if (!date) { toast('Please select a date.'); return; }
+
+  const selected = [...document.querySelectorAll('#session-skills .skill-chip.selected')].map(c => c.dataset.skillId);
+  if (selected.length === 0) { toast('Please select at least one skill area.'); return; }
+
+  const notes = {};
+  const ratings = {};
+  let hasContent = false;
+  selected.forEach(skillId => {
+    const val = document.getElementById('note-' + skillId).value.trim();
+    if (val) { notes[skillId] = val; hasContent = true; }
+    const ratingEl = document.getElementById('rating-' + skillId);
+    const r = parseInt(ratingEl.dataset.selected || '0');
+    if (r > 0) { ratings[skillId] = r; hasContent = true; }
+  });
+
+  const general = document.getElementById('session-general').value.trim();
+  if (!hasContent && !general) { toast('Please add at least one observation or rating.'); return; }
+
+  data.sessions.push({
+    id: 'ses_' + Date.now(), studentId, date,
+    skillNotes: notes, ratings: ratings,
+    generalNotes: general,
+    createdAt: new Date().toISOString()
+  });
+  saveData(data);
+  toast('Session notes saved!');
+  initSessionView();
+}
+
+// ── REPORT GENERATION ───────────────────────────────────────
+function initReportView() {
+  populateStudentDropdown('report-student');
+  const today = new Date();
+  const monthAgo = new Date(today);
+  monthAgo.setMonth(monthAgo.getMonth() - 1);
+  document.getElementById('report-from').value = monthAgo.toISOString().split('T')[0];
+  document.getElementById('report-to').value = todayISO();
+  document.getElementById('report-output').style.display = 'none';
+}
+
+function previewReport() {
+  const studentId = document.getElementById('report-student').value;
+  const from = document.getElementById('report-from').value;
+  const to = document.getElementById('report-to').value;
+  if (!studentId || !from || !to) return;
+
+  const student = data.students.find(s => s.id === studentId);
+  if (!student) return;
+
+  const sessions = data.sessions
+    .filter(s => s.studentId === studentId && s.date >= from && s.date <= to)
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  if (sessions.length === 0) {
+    document.getElementById('report-output').style.display = 'block';
+    document.getElementById('report-content').innerHTML = `<div class="empty-state"><h3>No sessions found</h3><p>No session notes for ${student.firstName} in this date range.</p></div>`;
+    return;
+  }
+
+  const includeTrends = document.getElementById('include-trends').checked;
+  const includeSnapshot = document.getElementById('include-snapshot').checked;
+
+  // Collect skill data
+  const skillsUsed = new Set();
+  const notesBySkill = {};
+  const ratingsBySkill = {};
+  let generalNotes = [];
+
+  sessions.forEach(sess => {
+    Object.keys(sess.skillNotes || {}).forEach(skillId => {
+      skillsUsed.add(skillId);
+      if (!notesBySkill[skillId]) notesBySkill[skillId] = [];
+      notesBySkill[skillId].push({ date: sess.date, note: sess.skillNotes[skillId] });
+    });
+    Object.keys(sess.ratings || {}).forEach(skillId => {
+      skillsUsed.add(skillId);
+      if (!ratingsBySkill[skillId]) ratingsBySkill[skillId] = [];
+      ratingsBySkill[skillId].push({ date: sess.date, rating: sess.ratings[skillId] });
+    });
+    if (sess.generalNotes) generalNotes.push({ date: sess.date, note: sess.generalNotes });
+  });
+
+  let html = `
+    <h2>Reading & Writing Progress for ${student.firstName} ${student.lastName}</h2>
+    <div class="report-subtitle">${student.grade} &bull; ${formatDate(from)} - ${formatDate(to)} &bull; ${sessions.length} session${sessions.length !== 1 ? 's' : ''}</div>`;
+
+  // Progress snapshot
+  if (includeSnapshot && Object.keys(ratingsBySkill).length > 0) {
+    html += `<h3>Progress Snapshot</h3><div class="progress-snapshot">`;
+    data.skills.forEach(skill => {
+      if (!ratingsBySkill[skill.id] || ratingsBySkill[skill.id].length === 0) return;
+      const entries = ratingsBySkill[skill.id];
+      const latest = entries[entries.length - 1].rating;
+      const first = entries[0].rating;
+      const change = latest - first;
+      let changeHtml = '';
+      if (entries.length > 1) {
+        if (change > 0) changeHtml = `<div class="snapshot-change up">+${change} level${change > 1 ? 's' : ''} improvement</div>`;
+        else if (change === 0) changeHtml = `<div class="snapshot-change same">Maintaining</div>`;
+        else changeHtml = `<div class="snapshot-change">Needs attention</div>`;
+      }
+      html += `
+        <div class="snapshot-card">
+          <div class="snapshot-label">${skill.name}</div>
+          <div class="snapshot-value" style="color:${RATING_COLORS[latest]}">${RATING_LABELS[latest]}</div>
+          ${changeHtml}
+        </div>`;
+    });
+    html += `</div>`;
+  }
+
+  // Trend bars in report
+  if (includeTrends && Object.keys(ratingsBySkill).length > 0) {
+    html += `<h3>Skill Progression</h3>`;
+    data.skills.forEach(skill => {
+      if (!ratingsBySkill[skill.id] || ratingsBySkill[skill.id].length === 0) return;
+      const entries = ratingsBySkill[skill.id];
+      const latest = entries[entries.length - 1].rating;
+      const pct = (latest / 5) * 100;
+      html += `
+        <div class="trend-row">
+          <div class="trend-label">${skill.name}</div>
+          <div class="trend-bar-track">
+            <div class="trend-bar-fill level-${latest}" style="width:${pct}%">${RATING_LABELS[latest]}</div>
+          </div>
+        </div>`;
+    });
+    html += `<div style="height:12px"></div>`;
+  }
+
+  // Skill area narratives
+  data.skills.forEach(skill => {
+    if (!skillsUsed.has(skill.id)) return;
+    const entries = notesBySkill[skill.id] || [];
+    html += `<h3>${skill.name}</h3><p>${skill.description}</p>`;
+    if (entries.length > 0) {
+      const combined = entries.map(e => e.note).join(' ');
+      html += `<p>${combined}</p>`;
+    }
+  });
+
+  if (generalNotes.length > 0) {
+    html += `<h3>Additional Notes</h3>`;
+    generalNotes.forEach(n => { html += `<p>${n.note}</p>`; });
+  }
+
+  html += `<div class="report-footer">Marisa's Reading Chair - Where Science Meets the Heart</div>`;
+
+  document.getElementById('report-content').innerHTML = html;
+  document.getElementById('report-output').style.display = 'block';
+}
+
+function printReport() {
+  if (document.getElementById('report-output').style.display === 'none') { toast('Preview the report first.'); return; }
+  window.print();
+}
+
+// ── PROGRESS TRENDS ─────────────────────────────────────────
+function initTrendsView() {
+  populateStudentDropdown('trends-student');
+  renderTrends();
+}
+
+function renderTrends() {
+  const studentId = document.getElementById('trends-student').value;
+  const rangeVal = document.getElementById('trends-range').value;
+  const el = document.getElementById('trends-content');
+
+  if (!studentId) {
+    el.innerHTML = '<div class="empty-state"><h3>Select a student</h3><p>Choose a student to view their progress trends.</p></div>';
+    return;
+  }
+
+  const student = data.students.find(s => s.id === studentId);
+  let fromDate = '1970-01-01';
+  if (rangeVal !== 'all') {
+    const d = new Date();
+    d.setDate(d.getDate() - parseInt(rangeVal));
+    fromDate = d.toISOString().split('T')[0];
+  }
+
+  const sessions = data.sessions
+    .filter(s => s.studentId === studentId && s.date >= fromDate)
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  if (sessions.length === 0) {
+    el.innerHTML = `<div class="empty-state"><h3>No sessions found</h3><p>No session data for ${student.firstName} in this time range.</p></div>`;
+    return;
+  }
+
+  // Collect ratings by skill over time
+  const ratingsBySkill = {};
+  const allDates = [];
+  sessions.forEach(sess => {
+    if (!allDates.includes(sess.date)) allDates.push(sess.date);
+    Object.keys(sess.ratings || {}).forEach(skillId => {
+      if (!ratingsBySkill[skillId]) ratingsBySkill[skillId] = [];
+      ratingsBySkill[skillId].push({ date: sess.date, rating: sess.ratings[skillId] });
+    });
+  });
+
+  const hasRatings = Object.keys(ratingsBySkill).length > 0;
+
+  let html = '';
+
+  // Summary stats
+  html += `<div class="progress-snapshot">
+    <div class="snapshot-card">
+      <div class="snapshot-label">Total Sessions</div>
+      <div class="snapshot-value">${sessions.length}</div>
+    </div>
+    <div class="snapshot-card">
+      <div class="snapshot-label">Consistency</div>
+      <div class="snapshot-value">${getConsistency(sessions)}</div>
+      <div class="snapshot-change same">avg days between sessions</div>
+    </div>`;
+
+  if (hasRatings) {
+    const skillsImproved = Object.keys(ratingsBySkill).filter(skillId => {
+      const entries = ratingsBySkill[skillId];
+      return entries.length > 1 && entries[entries.length-1].rating > entries[0].rating;
+    }).length;
+    html += `
+    <div class="snapshot-card">
+      <div class="snapshot-label">Skills Improving</div>
+      <div class="snapshot-value" style="color:var(--green)">${skillsImproved} of ${Object.keys(ratingsBySkill).length}</div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  // Current levels (bar chart)
+  if (hasRatings) {
+    html += `
+    <div class="trend-section">
+      <h3>Current Skill Levels</h3>
+      <div class="trend-legend">
+        <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e74c3c"></div> Needs Support</div>
+        <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#f39c12"></div> Developing</div>
+        <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c9a84c"></div> Progressing</div>
+        <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#27ae60"></div> Strong</div>
+        <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#2c4a3e"></div> Excelling</div>
+      </div>`;
+
+    data.skills.forEach(skill => {
+      if (!ratingsBySkill[skill.id] || ratingsBySkill[skill.id].length === 0) return;
+      const entries = ratingsBySkill[skill.id];
+      const latest = entries[entries.length - 1].rating;
+      const first = entries[0].rating;
+      const pct = (latest / 5) * 100;
+      let arrow = '';
+      if (entries.length > 1) {
+        const diff = latest - first;
+        if (diff > 0) arrow = ` <span style="color:var(--green)">+${diff}</span>`;
+        else if (diff === 0) arrow = ` <span style="color:var(--text-light)">--</span>`;
+        else arrow = ` <span style="color:#e74c3c">${diff}</span>`;
+      }
+      html += `
+        <div class="trend-row">
+          <div class="trend-label">${skill.name}${arrow}</div>
+          <div class="trend-bar-track">
+            <div class="trend-bar-fill level-${latest}" style="width:${pct}%">${RATING_LABELS[latest]}</div>
+          </div>
+        </div>`;
+    });
+    html += `</div>`;
+
+    // Progress over time (dot timeline per skill)
+    html += `<div class="trend-section"><h3>Progress Over Time</h3>`;
+    data.skills.forEach(skill => {
+      if (!ratingsBySkill[skill.id] || ratingsBySkill[skill.id].length < 2) return;
+      const entries = ratingsBySkill[skill.id];
+      html += `<div style="margin-bottom:16px;">
+        <div style="font-weight:600; font-size:0.88rem; color:var(--text-mid); margin-bottom:6px;">${skill.name}</div>
+        <div style="display:flex; align-items:center; gap:4px;">`;
+      entries.forEach((entry, i) => {
+        if (i > 0) html += `<div style="flex:1; height:2px; background:${RATING_COLORS[entry.rating]}; opacity:0.5;"></div>`;
+        html += `<div style="display:flex; flex-direction:column; align-items:center;">
+          <div style="width:28px; height:28px; border-radius:50%; background:${RATING_COLORS[entry.rating]}; color:white; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700;" title="${RATING_LABELS[entry.rating]} - ${formatDateShort(entry.date)}">${entry.rating}</div>
+          <div style="font-size:0.65rem; color:var(--text-light); margin-top:3px;">${formatDateShort(entry.date)}</div>
+        </div>`;
+      });
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+  }
+
+  // Session timeline
+  html += `<div class="trend-section"><h3>Session History</h3><div class="timeline">`;
+  [...sessions].reverse().forEach(sess => {
+    const skillNames = Object.keys(sess.skillNotes || {}).map(sid => {
+      const sk = data.skills.find(s => s.id === sid);
+      return sk ? sk.name : sid;
+    });
+    const ratingBadges = Object.keys(sess.ratings || {}).map(sid => {
+      const sk = data.skills.find(s => s.id === sid);
+      const r = sess.ratings[sid];
+      return `<span class="timeline-rating-badge" style="background:${RATING_COLORS[r]}">${sk ? sk.name : sid}: ${r}/5</span>`;
+    }).join('');
+
+    html += `
+      <div class="timeline-item">
+        <div class="timeline-date">${formatDate(sess.date)}</div>
+        <div class="timeline-skills">${skillNames.join(', ') || 'General notes only'}</div>
+        ${ratingBadges ? `<div class="timeline-ratings">${ratingBadges}</div>` : ''}
+      </div>`;
+  });
+  html += `</div></div>`;
+
+  el.innerHTML = html;
+}
+
+function getConsistency(sessions) {
+  if (sessions.length < 2) return '-';
+  let totalGap = 0;
+  for (let i = 1; i < sessions.length; i++) {
+    const a = new Date(sessions[i-1].date);
+    const b = new Date(sessions[i].date);
+    totalGap += (b - a) / (1000 * 60 * 60 * 24);
+  }
+  return Math.round(totalGap / (sessions.length - 1));
+}
+
+// ── SKILL TEMPLATES ─────────────────────────────────────────
+function renderTemplates() {
+  const el = document.getElementById('template-list');
+  if (data.skills.length === 0) {
+    el.innerHTML = '<div class="empty-state"><h3>No skill areas defined</h3><p>Add skill areas that you teach.</p></div>';
+    return;
+  }
+  el.innerHTML = data.skills.map(s => `
+    <div class="skill-note-block">
+      <h4>${s.name}</h4>
+      <p style="color: var(--text-mid); font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px;">${s.description}</p>
+      <div class="btn-group">
+        <button class="btn btn-sm btn-outline" onclick="editSkill('${s.id}')">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteSkill('${s.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAddSkill() {
+  editingSkillId = null;
+  document.getElementById('skill-modal-title').textContent = 'Add Skill Area';
+  document.getElementById('new-skill-name').value = '';
+  document.getElementById('new-skill-desc').value = '';
+  document.getElementById('modal-skill').classList.add('show');
+  document.getElementById('new-skill-name').focus();
+}
+
+function editSkill(id) {
+  editingSkillId = id;
+  const skill = data.skills.find(s => s.id === id);
+  document.getElementById('skill-modal-title').textContent = 'Edit Skill Area';
+  document.getElementById('new-skill-name').value = skill.name;
+  document.getElementById('new-skill-desc').value = skill.description;
+  document.getElementById('modal-skill').classList.add('show');
+}
+
+function saveSkill() {
+  const name = document.getElementById('new-skill-name').value.trim();
+  const desc = document.getElementById('new-skill-desc').value.trim();
+  if (!name) { toast('Please enter a skill name.'); return; }
+  if (!desc) { toast('Please enter a description.'); return; }
+  if (editingSkillId) {
+    const skill = data.skills.find(s => s.id === editingSkillId);
+    skill.name = name;
+    skill.description = desc;
+  } else {
+    data.skills.push({ id: 's_' + Date.now(), name, description: desc });
+  }
+  saveData(data);
+  closeModal('modal-skill');
+  renderTemplates();
+  toast(editingSkillId ? 'Skill updated.' : 'Skill added.');
+  editingSkillId = null;
+}
+
+function deleteSkill(id) {
+  const skill = data.skills.find(s => s.id === id);
+  if (!confirm(`Delete "${skill.name}" template?`)) return;
+  data.skills = data.skills.filter(s => s.id !== id);
+  saveData(data);
+  renderTemplates();
+  toast('Skill removed.');
+}
+
+// ── UTILITIES ───────────────────────────────────────────────
+function populateStudentDropdown(selectId) {
+  const el = document.getElementById(selectId);
+  el.innerHTML = '<option value="">Select a student...</option>' +
+    data.students.map(s => `<option value="${s.id}">${s.firstName} ${s.lastName} (${s.grade})</option>`).join('');
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+function todayISO() { return new Date().toISOString().split('T')[0]; }
+function formatDate(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function formatDateShort(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('show'); });
+});
+
+// ── INIT ────────────────────────────────────────────────────
+renderStudents();
+</script>
+</body>
+</html>
